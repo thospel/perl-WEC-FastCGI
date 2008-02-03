@@ -9,7 +9,7 @@ use WEC::FastCGI::Constants qw(:RecordTypes :Roles
                                REQUEST_COMPLETE LOST_CONNECTION KEEP_CONN);
 use AutoLoader qw(AUTOLOAD);
 
-our $VERSION = "0.01";
+our $VERSION = "1.000";
 our @EXPORT_OK = qw(parse_params %role_names);
 
 use base qw(WEC::Flow);

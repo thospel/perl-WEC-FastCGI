@@ -10,7 +10,7 @@ use WEC::Socket qw(is_tcp);
 use WEC::FastCGI::Constants qw(:Roles);
 use WEC::FastCGI::Connection;
 
-our $VERSION = "0.01";
+our $VERSION = "1.000";
 
 use base qw(WEC::Server);
 

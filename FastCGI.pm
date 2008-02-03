@@ -5,7 +5,7 @@ use warnings;
 
 use vars qw(@ISA $VERSION);
 
-$VERSION = "0.01";
+$VERSION = "1.000";
 require CGI;
 @ISA = qw(CGI);
 

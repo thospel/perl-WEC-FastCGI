@@ -10,7 +10,7 @@ use WEC::FastCGI::Constants qw(:RecordTypes :Roles
 use WEC::FastCGI::Request qw(parse_params);
 use WEC::Connection qw(HEADER BODY);
 
-our $VERSION = "0.01";
+our $VERSION = "1.000";
 our @EXPORT_OK = qw(parse_params %value_replies $flow_class);
 
 use base qw(WEC::Connection);

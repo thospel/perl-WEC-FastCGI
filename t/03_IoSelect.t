@@ -1,6 +1,5 @@
 # Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl IoSelect.t'
-
+# `make test'. After `make install' it should work as `perl 03_IoSelect.t'
 use warnings;
 use strict;
 
