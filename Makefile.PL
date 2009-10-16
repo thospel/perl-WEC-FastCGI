@@ -40,6 +40,7 @@ EOF
 $postamble{cover} = <<'EOF';
 cover:
 	cover -delete
+	mkdir cover_db
 	-HARNESS_PERL_SWITCHES=-MDevel::Cover make test
 	cover
 EOF
