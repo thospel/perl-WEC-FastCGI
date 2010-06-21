@@ -62,7 +62,7 @@ sub init {
     if ($options->{IpAccept} && !ref($options->{IpAccept})) {
         if ($options->{IpAccept} =~ /^env/i) {
             if (defined($ENV{FCGI_WEB_SERVER_ADDRS})) {
-                $options->{IpAccept} = [split /\s*,\s*/, 
+                $options->{IpAccept} = [split /\s*,\s*/,
                                         $ENV{FCGI_WEB_SERVER_ADDRS}];
             } else {
                 delete $options->{IpAccept};
@@ -274,7 +274,7 @@ The basic creation call is:
 
     $server = WEC::FastCGI::Server->new(...);
 
-but should only be done after a L<WEC->init|WEC/"init"> has been done. 
+but should only be done after a L<WEC->init|WEC/"init"> has been done.
 It's also ok to start servers if the main eventloop has already started
 (e.g. demand based in a callback).
 
@@ -287,8 +287,8 @@ must be given as key/value pairs.
 
 =item X<Handle>Handle => \@fhs
 
-This is the socket (or a reference to a list of sockets) on which the server 
-will wait for events. It's supposed to already have gotten any needed 
+This is the socket (or a reference to a list of sockets) on which the server
+will wait for events. It's supposed to already have gotten any needed
 L<bind|bind(2)> and L<listen|listen(2)>.
 (See L<unix|WEC::FastCGI::Socket/"unix"> and
 L<inet|WEC::FastCGI::Socket/"inet"> in

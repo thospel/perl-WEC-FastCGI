@@ -13,4 +13,3 @@ while ($req->Accept() >= 0) {
 0.01  Sun Oct 26 17:52:12 2003
 	- original version; created by h2xs 1.22 with options
 		-AX -b 5.8.0 -n WEC::FastCGI
-

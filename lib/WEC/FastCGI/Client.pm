@@ -22,7 +22,7 @@ my $default_options = {
     UnknownType	=> undef,
     RequestEnd	=> undef,
 };
-    
+
 sub default_options {
     return $default_options;
 }
@@ -234,7 +234,7 @@ The basic creation call is:
 
     $server = WEC::FastCGI::Client->new(...);
 
-but should only be done after a L<WEC->init|WEC/"init"> has been done. 
+but should only be done after a L<WEC->init|WEC/"init"> has been done.
 It's also ok to start clients if the main eventloop has already started
 (e.g. demand based in a callback).
 

@@ -910,7 +910,7 @@ for my $type (qw(Unix Tcp)) {
                    }
                    ]);
     {
-        local $SIG{__WARN__} = sub { 
+        local $SIG{__WARN__} = sub {
             diag("Unexpected warning: @_");
             fail("There should be no warning");
         };

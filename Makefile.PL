@@ -7,7 +7,7 @@ our $VERSION = '1.000';
 WriteMakefile
     (NAME		=> 'WEC::FastCGI',
      VERSION_FROM	=> 'FastCGI.pm', # finds $VERSION
-     PREREQ_PM		=> { 
+     PREREQ_PM		=> {
          WEC			=> 0.01,
          "Exporter::Tidy"	=> 0.05,
          "Test::More"		=> 0.11,	# For the tests only
@@ -30,11 +30,11 @@ use vars qw(%postamble);
 
 $postamble{ppm} = <<'EOF';
 ppm: $(DISTNAME).ppd
+	makeppd.pl "--perl=$(PERLRUN)" --min_version=1.015 "--zip=$(ZIP)" "--tar=$(TAR)" "--compress=$(COMPRESS)" --leave=ppm "--objects=$(OBJECT)" $(DISTNAME).ppd $(VERSION)
 EOF
 
 $postamble{ppd} = <<'EOF';
 $(DISTNAME).ppd: all ppd
-	makeppd.pl "--perl=$(PERLRUN)" --min_version=1.014 "--zip=$(ZIP)" "--tar=$(TAR)" "--compress=$(COMPRESS)" --leave=ppm "--objects=$(OBJECT)" $(DISTNAME).ppd $(VERSION)
 EOF
 
 $postamble{cover} = <<'EOF';
@@ -46,7 +46,7 @@ cover:
 EOF
 
 $postamble{ppm_install} = <<'EOF';
-ppm_install: $(DISTNAME).ppd
+ppm_install: ppm
 	ppm install ppm/$(DISTNAME).ppd
 EOF
 

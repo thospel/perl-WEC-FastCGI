@@ -4,13 +4,13 @@ use warnings;
 use strict;
 
 use Exporter::Tidy
-    RecordTypes		=> [qw(BEGIN_REQUEST ABORT_REQUEST END_REQUEST 
-                               PARAMS_STREAM STDIN_STREAM STDOUT_STREAM 
-                               STDERR_STREAM DATA_STREAM 
-                               GET_VALUES GET_VALUES_RESULT 
+    RecordTypes		=> [qw(BEGIN_REQUEST ABORT_REQUEST END_REQUEST
+                               PARAMS_STREAM STDIN_STREAM STDOUT_STREAM
+                               STDERR_STREAM DATA_STREAM
+                               GET_VALUES GET_VALUES_RESULT
                                UNKNOWN_TYPE)],
 
-    ProtocolStatus	=> [qw(REQUEST_COMPLETE CANT_MPX_CONN OVERLOADED 
+    ProtocolStatus	=> [qw(REQUEST_COMPLETE CANT_MPX_CONN OVERLOADED
                                UNKNOWN_ROLE LOST_CONNECTION)],
     Roles		=> [qw(RESPONDER AUTHORIZER FILTER)],
     Flags		=> [qw(KEEP_CONN)],

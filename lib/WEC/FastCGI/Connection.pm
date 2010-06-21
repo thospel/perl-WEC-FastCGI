@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use AutoLoader qw(AUTOLOAD);
 
-use WEC::FastCGI::Constants qw(:RecordTypes :Roles 
+use WEC::FastCGI::Constants qw(:RecordTypes :Roles
                                VERSION MAX_REQUEST PRE_RECORD KEEP_CONN);
 use WEC::FastCGI::Request qw(parse_params);
 use WEC::Connection qw(HEADER BODY);
@@ -88,10 +88,10 @@ sub record {
 # Call as $conn->send($type, $request_id, $content)
 sub send : method {
     my $connection = shift;
-    die "Attempt to send on a closed Connection" unless 
+    die "Attempt to send on a closed Connection" unless
         $connection->{out_handle};
     # print STDERR "$$: send($_[0], $_[1], ", unpack("H*", $_[2]), ")\n" unless tied(*STDERR);
-    
+
     die "Message is utf8" if utf8::is_utf8($_[2]);
     my $clength = length($_[2]);
     die "Message too long" if $clength >= 2**16;
@@ -128,7 +128,7 @@ sub begin_request {
     # No need to check for MAX_REQUEST, already guaranteed because the
     # req_id comes from an "n" unpack format.
     my $req = $connection->new_flow
-        ($flow_class, $connection->{options}, 
+        ($flow_class, $connection->{options},
          $connection->{req_id}, unpack("nC", shift));
     ($connection->{options}{RequestBegin} || return)->($connection, $req);
 }
@@ -154,7 +154,7 @@ sub got_get_values {
             $reply .= $_;
             $reply .= $replies->{$_};
         } elsif ($_ eq "FCGI_MPXS_CONNS") {
-            $reply .= pack("CCa*a", length, 1, $_, 
+            $reply .= pack("CCa*a", length, 1, $_,
                            $connection->{host_mpx} ? 1 : 0);
         }
     }
@@ -233,10 +233,10 @@ sub request {
             last;
         }
     }
-    croak("Out of request slots. You already have ",  
+    croak("Out of request slots. You already have ",
           keys %{$connection->{flows}}," requests pending !") unless $slot;
     $connection->{try_slot} = $slot+1;
-    my $flags = defined($connection->{flows_left}) && 
+    my $flags = defined($connection->{flows_left}) &&
         --$connection->{flows_left} == 0 ? 0 : KEEP_CONN;
     my $req = $connection->new_flow
         ($flow_class, $connection->{options}, $slot, $role, $flags);

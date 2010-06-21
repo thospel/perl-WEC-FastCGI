@@ -10,7 +10,7 @@ require CGI;
 @ISA = qw(CGI);
 
 # override the initialization behavior so that
-# state is NOT maintained between invocations 
+# state is NOT maintained between invocations
 sub save_request {
     # no-op
 }
@@ -47,28 +47,28 @@ WEC::FastCGI - CGI Interface for a WEC::FastCGI based server
 
 =head1 DESCRIPTION
 
-WEC::FastCGI is a subclass of the CGI object created by CGI.pm.  It is 
-specialized to work well with the Open Market FastCGI standard 
-(L<http://www.fastcgi.com/>), which greatly speeds up CGI scripts by turning 
-them into persistently running server processes. Scripts that perform 
-time-consuming initialization processes, such as loading large modules or 
-opening persistent database connections, will see large performance 
+WEC::FastCGI is a subclass of the CGI object created by CGI.pm.  It is
+specialized to work well with the Open Market FastCGI standard
+(L<http://www.fastcgi.com/>), which greatly speeds up CGI scripts by turning
+them into persistently running server processes. Scripts that perform
+time-consuming initialization processes, such as loading large modules or
+opening persistent database connections, will see large performance
 improvements.
 
 =head1 OTHER PIECES OF THE PUZZLE
 
-However, unlike with normal CGI classes (even L<CGI::Fast|CGI::Fast>), you 
+However, unlike with normal CGI classes (even L<CGI::Fast|CGI::Fast>), you
 should not run in a while loop creating new objects and handling one connection
 at a time. Instead let L<WEC::FastCGI::Server|WEC::FastCGI::Server> create the
-CGI object and use it from callbacks (see the example in the 
+CGI object and use it from callbacks (see the example in the
 L<SYNOPSIS|"Synopsis">).
 
-In order to use WEC::FastCGI you'll need a standalone Fast CGI client 
-(L<WEC::FastCGI::Client|WEC::FastCGI::Client> lets you easily write such 
+In order to use WEC::FastCGI you'll need a standalone Fast CGI client
+(L<WEC::FastCGI::Client|WEC::FastCGI::Client> lets you easily write such
 clients) or (much more common) use a FastCGI-enabled Web server. Almost all
 modern webservers are able to handle FastCGI (after maybe activating some
 addon module). For example, apache (L<http://httpd.apache.org/>) has the
-mod_fastcgi module 
+mod_fastcgi module
 (L<http://www.fastcgi.com/mod_fastcgi/docs/mod_fastcgi.html>). Look at
 the fastci website (L<http://www.fastcgi.com/>) for information about other
 servers.
@@ -76,9 +76,9 @@ servers.
 =head1 WRITING FASTCGI PERL SCRIPTS
 
 FastCGI scripts are persistent: one or more copies of the script are started up
-when the web server initializes, and stay around until the web server exits or 
-they die a natural death.  After performing whatever one-time initialization 
-it needs, the script enters the eventkernel main loop waiting for incoming 
+when the web server initializes, and stay around until the web server exits or
+they die a natural death.  After performing whatever one-time initialization
+it needs, the script enters the eventkernel main loop waiting for incoming
 connections and requests sent over such a connection. Your code will then be
 told about the request, you can send out an answer and then return (which
 will return to the main loop).
@@ -97,14 +97,14 @@ A typical WEC::FastCGI script will look like this:
     loop;
 
 Each time a new request is completely received, process_request will be called
-with a WEC::FastCGI object as its second parameter, The rest of the time your 
-script sits waiting in the call to loop(). The server can use signals to 
+with a WEC::FastCGI object as its second parameter, The rest of the time your
+script sits waiting in the call to loop(). The server can use signals to
 request your script to terminate or you can deecide to exit earlier. A new
-version of the script will be respawned by the web server to take its place 
-(this may be necessary in order to avoid Perl memory leaks in long-running 
+version of the script will be respawned by the web server to take its place
+(this may be necessary in order to avoid Perl memory leaks in long-running
 scripts).
 
-CGI.pm's default CGI object mode also works. Calls to header(), start_form(), 
+CGI.pm's default CGI object mode also works. Calls to header(), start_form(),
 etc. will all operate on the current request.
 
 =head1 INSTALLING FASTCGI SCRIPTS
@@ -114,7 +114,7 @@ Apache server, the following line can be added to configuration:
 
     AddHandler fastcgi-script fcgi
 
-This will make scripts that end with the extension F<.fcgi> be FastCGI 
+This will make scripts that end with the extension F<.fcgi> be FastCGI
 scripts.
 
 Or you can in a C<directory> context add:
@@ -128,16 +128,16 @@ You also need to add a directive to start scripts. For static scripts
 
     FastCgiServer /usr/etc/httpd/fcgi-bin/file_upload.fcgi -processes 2
 
-While for dynamic scripts (servers are started on demand), you'd use something 
+While for dynamic scripts (servers are started on demand), you'd use something
 like:
 
     FastCgiConfig
 
-(you can also tell the server about externally managed scripts using 
+(you can also tell the server about externally managed scripts using
 FastCgiExternalServer).
 
 This only very lightly touches on what can be configered. Please see the
-mod_fastcgi documentation 
+mod_fastcgi documentation
 (L<http://www.fastcgi.com/mod_fastcgi/docs/mod_fastcgi.html>) for more details.
 One interesting option is C<-flush> which tells the web server not to buffer
 your output until it sees the request end.
@@ -149,8 +149,8 @@ There's little point to it though.
 
 =head1 EXTERNAL FASTCGI SERVER INVOCATION
 
-FastCGI supports a TCP/IP transport mechanism which allows FastCGI scripts to 
-run external to the webserver, perhaps even on a remote machine. To configure 
+FastCGI supports a TCP/IP transport mechanism which allows FastCGI scripts to
+run external to the webserver, perhaps even on a remote machine. To configure
 apache to connect to an external FastCGI server, you would add something like
 the following to your configuration:
 

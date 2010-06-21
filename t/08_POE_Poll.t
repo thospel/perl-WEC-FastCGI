@@ -17,7 +17,7 @@ use_ok('WEC');
 require POE::Kernel;
 my @poe_type;
 for (keys %INC) {
-    push @poe_type, $1 if 
+    push @poe_type, $1 if
         m!^POE/(?:XS/)?Loop/(.+)\.pm\z! && $1 ne "PerlSignals";
 }
 ok($WEC::kernel_type eq "WEC::POE" && @poe_type == 1 &&

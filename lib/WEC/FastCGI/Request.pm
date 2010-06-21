@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use WEC qw(api=1);
 use WEC::FastCGI;
-use WEC::FastCGI::Constants qw(:RecordTypes :Roles 
+use WEC::FastCGI::Constants qw(:RecordTypes :Roles
                                REQUEST_COMPLETE LOST_CONNECTION KEEP_CONN);
 use AutoLoader qw(AUTOLOAD);
 
@@ -252,9 +252,9 @@ sub stdin {
     my $req = shift;
     return $req->{stdin} unless @_;
     croak "stdin already closed" if $req->{stdin_closed};
-    $req->{stdin} .= utf8::is_utf8($_[0]) ? do { 
-        my $str = shift; 
-        utf8::downgrade($str, 1) || croak "Wide character in stdin"; 
+    $req->{stdin} .= utf8::is_utf8($_[0]) ? do {
+        my $str = shift;
+        utf8::downgrade($str, 1) || croak "Wide character in stdin";
         $str } : shift;
     if (length($req->{stdin}) >= $req->{stdin_buffer}) {
         $req->{parent}->send(STDIN_STREAM, $req->{id},
@@ -302,9 +302,9 @@ sub stdout {
     my $req = shift;
     return $req->{stdout} unless @_;
     croak "stdout already closed" if $req->{stdout_closed};
-    $req->{stdout} .= utf8::is_utf8($_[0]) ? do { 
-        my $str = shift; 
-        utf8::downgrade($str, 1) || croak "Wide character in stdout"; 
+    $req->{stdout} .= utf8::is_utf8($_[0]) ? do {
+        my $str = shift;
+        utf8::downgrade($str, 1) || croak "Wide character in stdout";
         $str } : shift;
     if (length($req->{stdout}) >= $req->{stdout_buffer}) {
         $req->{parent}->send(STDOUT_STREAM, $req->{id},
@@ -352,9 +352,9 @@ sub stderr {
     my $req = shift;
     return $req->{stderr} unless @_;
     croak "stderr already closed" if $req->{stderr_closed};
-    $req->{stderr} .= utf8::is_utf8($_[0]) ? do { 
-        my $str = shift; 
-        utf8::downgrade($str, 1) || croak "Wide character in stderr"; 
+    $req->{stderr} .= utf8::is_utf8($_[0]) ? do {
+        my $str = shift;
+        utf8::downgrade($str, 1) || croak "Wide character in stderr";
         $str } : shift;
     if (length($req->{stderr}) >= $req->{stderr_buffer}) {
         $req->{parent}->send(STDERR_STREAM, $req->{id},
@@ -402,9 +402,9 @@ sub data {
     my $req = shift;
     return $req->{data} unless @_;
     croak "data already closed" if $req->{data_closed};
-    $req->{data} .= utf8::is_utf8($_[0]) ? do { 
-        my $str = shift; 
-        utf8::downgrade($str, 1) || croak "Wide character in data"; 
+    $req->{data} .= utf8::is_utf8($_[0]) ? do {
+        my $str = shift;
+        utf8::downgrade($str, 1) || croak "Wide character in data";
         $str } : shift;
     if (length($req->{data}) >= $req->{data_buffer}) {
         $req->{parent}->send(DATA_STREAM, $req->{id},
@@ -455,11 +455,11 @@ sub end {
     $req->stdout_close unless $req->{stdout_closed};
     $req->stderr_close unless $req->{stderr_closed};
     my $connection = $req->{parent};
-    $connection->send(END_REQUEST, $req->{id}, 
+    $connection->send(END_REQUEST, $req->{id},
                       pack("NCx3", shift || 0, shift || REQUEST_COMPLETE));
     $req->{cgi} = undef;
     $req->_drop;
-    $connection->close_on_empty if 
+    $connection->close_on_empty if
         !$req->{flags} & KEEP_CONN && $connection->handle;
 }
 
@@ -543,7 +543,7 @@ sub params {
             if (ref($_[0])) {
                 my $params = shift;
                 for my $pname (keys %$params) {
-                    (utf8::downgrade $pname, 1) || 
+                    (utf8::downgrade $pname, 1) ||
                         croak "Wide character in param key";
                     if (length($pname) < 128) {
                         $_ .= chr(length($pname));
@@ -579,7 +579,7 @@ sub params {
             my $pname  = shift;
             (utf8::downgrade $pname, 1) || croak "Wide character in param key";
             my $pvalue = shift;
-            (utf8::downgrade $pvalue, 1) || 
+            (utf8::downgrade $pvalue, 1) ||
                 croak "Wide character in param value";
             if (length($pname) < 128) {
                 $_ .= chr(length($pname));
