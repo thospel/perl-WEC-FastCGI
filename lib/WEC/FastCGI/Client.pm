@@ -45,6 +45,7 @@ sub init {
 }
 
 sub DESTROY {
+    local $@;
     my $client = shift;
     # Avoid trying to unlink linux abstract unix sockets
     for my $path (keys %{$client->{paths}}) {
