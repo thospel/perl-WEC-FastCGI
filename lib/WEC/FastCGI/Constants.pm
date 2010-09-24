@@ -1,7 +1,7 @@
 package WEC::FastCGI::Constants;
 use 5.008;
-use warnings;
 use strict;
+use warnings;
 
 use Exporter::Tidy
     RecordTypes		=> [qw(BEGIN_REQUEST ABORT_REQUEST END_REQUEST
