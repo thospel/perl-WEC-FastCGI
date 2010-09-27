@@ -390,7 +390,7 @@ STDIN L<tied|perltie> to the input stream coming from the client.
 
 Every read from this tied STDIN will consume the corresponding data from
 the internal stdin buffer. If you try to read more than is available,
-you'll get the part that is available, or the normal EOF behaviour for the
+you'll get the part that is available, or the normal EOF behavior for the
 read method you used if nothing is available. If however after such an EOF
 on a later callback that has STDIN tied there's more stdin data again,
 you can just continue reading at that point.
