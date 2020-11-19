@@ -21,3 +21,4 @@ t/10_POE_Tk.t
 t/TestKernel.pm
 t/Z.t
 md5-versions
+version_check

@@ -1,4 +1,4 @@
-## no critic (ProhibitUselessNoCritic ProhibitMagicNumbers)
+## no critic (UselessNoCritic MagicNumbers)
 use strict;
 use warnings;
 use Test::More tests => 1;
